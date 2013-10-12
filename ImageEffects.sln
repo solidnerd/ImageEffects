@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageEffects", "ImageEffects\ImageEffects.csproj", "{86A9B98C-FDBB-4183-B4BF-65F98D9ECCF2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageEffects", "Source\ImageEffects.csproj", "{86A9B98C-FDBB-4183-B4BF-65F98D9ECCF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
