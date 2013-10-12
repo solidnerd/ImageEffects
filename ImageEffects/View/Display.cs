@@ -8,23 +8,18 @@ namespace ImageEffects.View
     {
         private ConsoleColorEvent consolecolorevent;
         private const string programmname = "ImageEffects";
-        private bool fileloaed = false;
+        private string filepath;
         public Display(ConsoleColorChanger ccc) 
         {
             consolecolorevent = ccc;
+            filepath = null;
         }
 
        public void show()
        {
            consolecolorevent.Write(ConsoleColor.Gray, programmname + "\t\t");
-           if (fileloaed)
-           {
-               consolecolorevent.Write(ConsoleColor.Green, "HI");
-           }
-           else 
-           {
-               consolecolorevent.WriteLine(ConsoleColor.Red, "No File Loaded");
-           }
+           consolecolorevent.WriteLine(((filepath != null) ? ConsoleColor.Green:ConsoleColor.Red),((filepath != null) ? filepath:"No File Loaded"));
+           consolecolorevent.WriteLine(ConsoleColor.Gray,"===============");
        }
     }
 }

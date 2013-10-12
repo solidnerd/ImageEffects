@@ -10,6 +10,7 @@ namespace ImageEffects.Controller
         {
             Display display = new Display(new ConsoleColorChanger());
             display.show();
+            Console.Read();
         }
     }
 }
