@@ -8,7 +8,7 @@ namespace ImageEffects.Controller
     {
         static void Main(string[] args)
         {
-            Display display = new Display(new ConsoleColorChanger());
+            Display display = new Display();
             display.show();
             Console.Read();
         }

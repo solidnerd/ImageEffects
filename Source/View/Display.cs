@@ -6,21 +6,19 @@ namespace ImageEffects.View
 {
     class Display 
     {
-        private ConsoleColorEvent consolecolorevent;
         private const string programname = "ImageEffects";
         private string filepath;
         private List<string> menupoints = new List<string>();
+        
         public string Filepath
         {
             get { return filepath; }
             set { filepath = value; }
         }
       
-        public Display(ConsoleColorChanger ccc) 
+        public Display() 
         {
-            consolecolorevent = ccc;
-            filepath = null;
-            initatemenupoints();
+          initatemenupoints();
         }
 
         private void initatemenupoints() 
@@ -32,12 +30,12 @@ namespace ImageEffects.View
 
        public void show()
        {
-           consolecolorevent.Write(ConsoleColor.Gray, programname + "\t\t");
-           consolecolorevent.WriteLine((filepath != null ? ConsoleColor.Green:ConsoleColor.Red),(filepath != null ? filepath:"No File Loaded"));
-           consolecolorevent.WriteLine(ConsoleColor.Gray,"===============");
+           ConsoleColorChanger.Write(ConsoleColor.Gray, programname + "\t\t");
+           ConsoleColorChanger.WriteLine((filepath != null ? ConsoleColor.Green : ConsoleColor.Red), (filepath != null ? filepath : "No File Loaded"));
+           ConsoleColorChanger.WriteLine(ConsoleColor.Gray, "===============");
            for (int i = 0; i < menupoints.Count; i++)
            {
-               consolecolorevent.WriteLine(ConsoleColor.Gray,String.Format("({0}) {1}",i+1,menupoints[i]));
+               ConsoleColorChanger.WriteLine(ConsoleColor.Gray, String.Format("({0}) {1}", i + 1, menupoints[i]));
            }
        }
     }
