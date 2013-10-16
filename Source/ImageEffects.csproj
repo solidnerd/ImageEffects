@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,15 +44,15 @@
   <ItemGroup>
     <Compile Include="Controller\ConsoleColorChanger.cs" />
     <Compile Include="Controller\Program.cs" />
+    <Compile Include="Model\Greyscale.cs" />
+    <Compile Include="Model\PersistentImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\Display.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
