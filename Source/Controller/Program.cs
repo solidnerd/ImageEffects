@@ -10,7 +10,9 @@ namespace ImageEffects.Controller
         {
             Display display = new Display();
             display.show();
-            Console.Read();
+            display.ReadMenuInput();
+            
+            
         }
     }
 }
