@@ -38,5 +38,24 @@ namespace ImageEffects.View
                ConsoleColorChanger.WriteLine(ConsoleColor.Gray, String.Format("({0}) {1}", i + 1, menupoints[i]));
            }
        }
+
+       public void ReadMenuInput() 
+       {
+           int input = 0;
+           try 
+	       {
+              input = int.Parse(Console.ReadLine());
+	       }
+           catch (FormatException)
+	       {
+               ConsoleColorChanger.WriteLine(ConsoleColor.Red, "Bitte Geben Sie eine Zahl ein");
+	       }
+           switch (input - 1) 
+           {
+               case 0:
+                   Console.Clear();
+                   break;
+           }
+       }
     }
 }
