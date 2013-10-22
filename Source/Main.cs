@@ -43,5 +43,11 @@ namespace ImageEffectswithGUI
                 
             }*/
         }
+
+        private void ButtonBlackandWhite_Click(object sender, EventArgs e)
+        {
+            BlackAndWhite.Threshold = 50;
+            BlackAndWhite.StartBlackAndWhite(DirectImage.Image as Bitmap, (manipulatedimage) => DirectImage.Image = manipulatedimage);
+        }
     }
 }
