@@ -8,9 +8,8 @@ namespace ImageEffects.Controller
     {
         static void Main(string[] args)
         {
-            Display display = new Display();
-            display.show();
-            display.ReadMenuInput();
+            Main MainWindow = new Main();
+            MainWindow.ShowDialog(); 
             
             
         }
