@@ -9,7 +9,6 @@ namespace ImageEffectswithGUI
         public static int Threshold { get; set; }
         public delegate void SetImageCallBack(Bitmap setimage);
         
-
         public static void StartBlackAndWhite(Bitmap targetimage, SetImageCallBack setimagecallback ) 
         {
             for (int x = 0, imagewidth = targetimage.Width; x < imagewidth; x++)
@@ -17,7 +16,6 @@ namespace ImageEffectswithGUI
                 for (int y = 0, imageheight = targetimage.Height; y < imageheight; y++)
                 {
                     targetimage.SetPixel(x, y, calculateBlackAndWhite(targetimage.GetPixel(x,y)));
-
                 }
             }
             setimagecallback(targetimage);

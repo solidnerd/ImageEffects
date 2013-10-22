@@ -73,6 +73,7 @@
             this.ButtonHistogram.TabIndex = 0;
             this.ButtonHistogram.Text = "Histogram ";
             this.ButtonHistogram.UseVisualStyleBackColor = true;
+            this.ButtonHistogram.Click += new System.EventHandler(this.ButtonHistogram_Click);
             // 
             // Button3x3
             // 
@@ -98,7 +99,7 @@
             this.dateiToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(511, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(512, 24);
             this.mainMenuStrip.TabIndex = 1;
             this.mainMenuStrip.Text = "MainMenuStrip";
             // 
@@ -148,7 +149,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(511, 520);
+            this.ClientSize = new System.Drawing.Size(512, 520);
             this.Controls.Add(this.DirectImage);
             this.Controls.Add(this.Button11x11);
             this.Controls.Add(this.Button3x3);

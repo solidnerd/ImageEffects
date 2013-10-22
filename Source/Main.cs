@@ -38,16 +38,19 @@ namespace ImageEffectswithGUI
 
         private void speichernToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           /* if (saveFileDialog1.ShowDialog == DialogResult.OK) 
-            {
-                
-            }*/
+           //TODO: Implement Save funtion your pictures
         }
 
         private void ButtonBlackandWhite_Click(object sender, EventArgs e)
         {
             BlackAndWhite.Threshold = 50;
             BlackAndWhite.StartBlackAndWhite(DirectImage.Image as Bitmap, (manipulatedimage) => DirectImage.Image = manipulatedimage);
+        }
+
+        private void ButtonHistogram_Click(object sender, EventArgs e)
+        {
+      
+           
         }
     }
 }
