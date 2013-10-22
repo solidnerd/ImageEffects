@@ -16,7 +16,7 @@ namespace ImageEffectswithGUI
         {
             for(int x = 0 ,imagewidth =targetimage.Width ; x < imagewidth;x++)
             {
-                for (int y = 0, imageheigth = targetimage.Height; y < imageheigth; y++)
+                for (int y = 0, imageheight = targetimage.Height; y < imageheight; y++)
                 {
                    targetimage.SetPixel(x,y,calculateluminanz(targetimage.GetPixel(x, y)));
                 }
