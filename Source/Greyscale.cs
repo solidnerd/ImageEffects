@@ -5,14 +5,13 @@ namespace ImageEffectswithGUI
 {
     class Greyscale
     {
-        private Bitmap targetimage;
-        public Greyscale(Bitmap image) 
-        {
-            targetimage = image;
-        }
-
-
-        public Bitmap startgreyscale() 
+        public delegate void SetImageCallBack(Bitmap setimage);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="targetimage"></param>
+        /// <param name="setimagecallback">Funtction to set</param>
+        public static void startgreyscale(Bitmap targetimage,SetImageCallBack setimagecallback) 
         {
             for(int x = 0 ,imagewidth =targetimage.Width ; x < imagewidth;x++)
             {
@@ -21,12 +20,11 @@ namespace ImageEffectswithGUI
                    targetimage.SetPixel(x,y,calculateluminanz(targetimage.GetPixel(x, y)));
                 }
             }
-
-            return targetimage;
+            setimagecallback(targetimage);
         }
  
 
-        private Color calculateluminanz(Color color) 
+        private static Color calculateluminanz(Color color) 
         {
             int grayscalevalue = (int)((0.299 * color.R) + ( 0.587 * color.G)+( 0.114 * color.B));
             return Color.FromArgb(grayscalevalue, grayscalevalue, grayscalevalue);

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace ImageEffectswithGUI
 {
@@ -21,20 +21,27 @@ namespace ImageEffectswithGUI
 
         private void ladenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           Stream loadstream;
+           Stream loadStream;
            if (openFileDialog1.ShowDialog() == DialogResult.OK) 
            {
-               if ((loadstream=openFileDialog1.OpenFile())!= null) 
+               if ((loadStream=openFileDialog1.OpenFile())!= null) 
                {
-                  DirectImage.Image = new Bitmap(loadstream);
+                  DirectImage.Image = new Bitmap(loadStream);
                }
            }
         }
 
         private void ButtonGreyscale_Click(object sender, EventArgs e)
         {
-            Greyscale gs =new Greyscale(DirectImage.Image as Bitmap);
-            DirectImage.Image = gs.startgreyscale();
+            Greyscale.startgreyscale(DirectImage.Image as Bitmap,(manipulatedimage)=>DirectImage.Image=manipulatedimage);
+        }
+
+        private void speichernToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           /* if (saveFileDialog1.ShowDialog == DialogResult.OK) 
+            {
+                
+            }*/
         }
     }
 }
