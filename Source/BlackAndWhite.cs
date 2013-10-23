@@ -23,7 +23,6 @@ namespace ImageEffectswithGUI
 
         private static Color calculateBlackAndWhite(Color color) 
         {
-            //f'(x,y) = 1 , falls f(x,y) > w ansonsten 0 
             int grayscalevalue = (int)((0.299 * color.R) + (0.587 * color.G) + (0.114 * color.B));
             return grayscalevalue > BlackAndWhite.Threshold ? Color.White : Color.Black;
         }

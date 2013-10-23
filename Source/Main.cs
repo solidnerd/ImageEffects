@@ -38,18 +38,28 @@ namespace ImageEffectswithGUI
 
         private void speichernToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           //TODO: Implement Save funtion your pictures
+            Stream savestream;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK) 
+            {
+                if ((savestream = saveFileDialog1.OpenFile()) != null) 
+                {
+                    DirectImage.Image.Save(savestream, ImageFormat.Png);
+                }
+            
+            }
+           
+            
         }
 
         private void ButtonBlackandWhite_Click(object sender, EventArgs e)
         {
-            BlackAndWhite.Threshold = 50;
+            BlackAndWhite.Threshold = 128;
             BlackAndWhite.StartBlackAndWhite(DirectImage.Image as Bitmap, (manipulatedimage) => DirectImage.Image = manipulatedimage);
         }
 
         private void ButtonHistogram_Click(object sender, EventArgs e)
         {
-      
+            HistogramStretch.StartHistogramStretch(DirectImage.Image as Bitmap, (manipulatedimage) => DirectImage.Image = manipulatedimage);
            
         }
     }

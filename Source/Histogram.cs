@@ -10,23 +10,37 @@ namespace ImageEffectswithGUI
         public static int hmax { get; set; }
         public delegate void SetImageCallBack(Bitmap image);
 
-        public void StartHistogramStretch(Bitmap targetimage, SetImageCallBack setimage) 
+        public static void StartHistogramStretch(Bitmap targetimage, SetImageCallBack setimage)
         {
             for (int x = 0, imagewidth = targetimage.Width; x < imagewidth; x++)
             {
                 for (int y = 0, imageheight = targetimage.Height; y < imageheight; y++)
                 {
-                    targetimage.SetPixel(x, y, calcHistogram(targetimage.GetPixel(x, y)));
+                    Color color = targetimage.GetPixel(x, y);
+                    int greyscalevalue = color.ToArgb();
+                    if (greyscalevalue > hmax)
+                        hmax = greyscalevalue;
+                    if (greyscalevalue < hmin)
+                        hmin = greyscalevalue;
                 }
-            }
+         }
+           
+           
+          for (int x = 0, imagewidth = targetimage.Width; x < imagewidth; x++)
+          {
+          for (int y = 0, imageheight = targetimage.Height; y < imageheight; y++)
+          {
+            targetimage.SetPixel(x, y, calcHistogram(targetimage.GetPixel(x, y)));
+          }
+        }
 
             setimage(targetimage);
         }
-
+        // ((color - hmin)*255)/(hmax-hmin)
         private static Color calcHistogram(Color color) 
         {
-            //TODO: Implement Function
-            return color;
+            int colorvalue = ((color.ToArgb()-hmin)*255)/(hmax-hmin);
+            return Color.FromArgb(colorvalue, colorvalue, colorvalue) ;
         }
     }
 }

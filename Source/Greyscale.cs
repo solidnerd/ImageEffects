@@ -22,7 +22,6 @@ namespace ImageEffectswithGUI
             }
             setimagecallback(targetimage);
         }
- 
 
         private static Color calculateluminanz(Color color) 
         {
