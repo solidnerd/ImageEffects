@@ -57,7 +57,7 @@ public class Filteroperation
         switch (filteroperations)
         {
             case FilterOperations.Weichzeichner:
-                Weichzeichner();
+                normalblur();
                 break;
             case FilterOperations.Boost:
                 break;
@@ -70,7 +70,7 @@ public class Filteroperation
         setImage(_image);
     }
 
-    private void Weichzeichner()
+    private void normalblur()
     {
         ConvolutionMatrix m = new ConvolutionMatrix(3);
         m.SetAll(1);
