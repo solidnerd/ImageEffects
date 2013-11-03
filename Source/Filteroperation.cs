@@ -1,36 +1,63 @@
 ﻿using System;
 using System.Drawing;
-public enum FilterOperations 
+public enum FilterOperations
 {
     Weichzeichner,
     Boost,
     Sobel,
     GaußWeichzeichner
 }
-public  class Filteroperation
+
+public sealed class ConvolutionMatrix
 {
-    private  float ScaleFactor { get; set; }
+    public int MatrixSize = 3;
+
+    public double[,] Matrix;
+    public double Factor = 1;
+    public double Offset = 1;
+
+    public ConvolutionMatrix(int size)
+    {
+        MatrixSize = 3;
+        Matrix = new double[size, size];
+    }
+
+    public void SetAll(double value)
+    {
+        for (int i = 0; i < MatrixSize; i++)
+        {
+            for (int j = 0; j < MatrixSize; j++)
+            {
+                Matrix[i, j] = value;
+            }
+        }
+    }
+
+}
+public class Filteroperation
+{
+    private float ScaleFactor { get; set; }
     private FilterOperations filteroperations;
     public delegate void ImageCallBack(Bitmap setimage);
     private Bitmap _image;
     //int[,] multidimesionales array in c# wird über die Index werte gesteuert Bsp: array[0,3] 0 Zeile 3 Spalte
-   
-    private Color[,] PointMatrix {get;set;}
+
+    private Color[,] PointMatrix { get; set; }
 
     public Filteroperation() { }
-    public Filteroperation(Bitmap Image,FilterOperations FilterOperationType) 
+    public Filteroperation(Bitmap Image, FilterOperations FilterOperationType)
     {
         this._image = Image;
         this.filteroperations = FilterOperationType;
     }
-    
-    public void Start(ImageCallBack setImage) 
+
+    public void Start(ImageCallBack setImage)
     {
-        
-        switch (filteroperations) 
-        { 
+
+        switch (filteroperations)
+        {
             case FilterOperations.Weichzeichner:
-                Weichzeichner(); 
+                Weichzeichner();
                 break;
             case FilterOperations.Boost:
                 break;
@@ -43,104 +70,93 @@ public  class Filteroperation
         setImage(_image);
     }
 
-    private void Weichzeichner() 
-    { 
-      int[,] FilterMatrix = {{1,1,1},{1,1,1},{1,1,1}};
-    
-      PointMatrix = new Color[3, 3];
-      ScaleFactor = 1 / 9;
-      int R=0 , A=0 , G=0, B =0;
-      for (int x = 0; x < _image.Width - 2; x++)
-      {
-          for (int y = 0; y < _image.Height - 2; y++)
-          {
-            #region oldcode
-              /* PointMatrix[0, 0] = ((x-1 >= 0 && x-1 < imagewidth) && (y-1 >= 0 && y-1 < imageheight)) ? _image.GetPixel(x - 1, y - 1): Color.FromArgb(0,0,0,0);
-             PointMatrix[0, 1] = ((x >= 0 && x < imagewidth) && (y - 1 >= 0 && y - 1 < imageheight)) ? _image.GetPixel(x, y - 1) : Color.FromArgb(0, 0, 0, 0);
-             PointMatrix[0, 2] = ((x + 1 >= 0 && x + 1 < imagewidth) && (y - 1 >= 0 && y - 1 < imageheight)) ? _image.GetPixel(x + 1, y - 1) : Color.FromArgb(0, 0, 0, 0);
-             PointMatrix[1, 0] = ((x - 1 >= 0 && x - 1 < imagewidth) && (y >= 0 && y < imageheight)) ? _image.GetPixel(x - 1, y) : Color.FromArgb(0, 0, 0, 0);
-             PointMatrix[1, 1] = ((x >= 0 && x < imagewidth) && (y >= 0 && y < imageheight)) ? _image.GetPixel(x, y) : Color.FromArgb(0, 0, 0, 0);
-             PointMatrix[1, 2] = ((x + 1 >= 0 && x + 1 < imagewidth) && (y >= 0 && y < imageheight)) ? _image.GetPixel(x + 1, y) : Color.FromArgb(0, 0, 0, 0);
-             PointMatrix[2, 0] = ((x - 1 >= 0 && x - 1 < imagewidth) && (y + 1 >= 0 && y + 1 < imageheight)) ? _image.GetPixel(x - 1, y + 1) : Color.FromArgb(0, 0, 0, 0);
-             PointMatrix[2, 1] = ((x >= 0 && x < imagewidth) && (y + 1 >= 0 && y + 1 < imageheight)) ? _image.GetPixel(x, y + 1) : Color.FromArgb(0, 0, 0,0);
-             PointMatrix[2, 2] = ((x + 1 >= 0 && x + 1 < imagewidth) && (y + 1 >= 0 && y + 1 < imageheight)) ? _image.GetPixel(x + 1, y + 1) : Color.FromArgb(0, 0, 0, 0);
-            */
-#endregion
-             PointMatrix[0, 0] = _image.GetPixel(x, y);  
-             PointMatrix[0, 1] = _image.GetPixel(x, y + 1);  
-             PointMatrix[0, 2] = _image.GetPixel(x, y + 2);  
-             PointMatrix[1, 0] = _image.GetPixel(x + 1, y);  
-             PointMatrix[1, 1] = _image.GetPixel(x + 1, y + 1);  
-            PointMatrix[1, 2] = _image.GetPixel(x + 1, y + 2);  
-            PointMatrix[2, 0] = _image.GetPixel(x + 2, y);  
-            PointMatrix[2, 1] = _image.GetPixel(x + 2, y + 1);  
-            PointMatrix[2, 2] = _image.GetPixel(x + 2, y + 2); 
-         
+    private void Weichzeichner()
+    {
+        ConvolutionMatrix m = new ConvolutionMatrix(3);
+        m.SetAll(1);
+        m.Factor = 9;
+        m.Matrix[1, 1] = 1;
+        PointMatrix = new Color[3, 3];
+        Color[,] pixelColor = new Color[3, 3];
+        int A, R, G, B;
 
-              A = PointMatrix[1, 1].A;  
-  
-            R = (int)((((PointMatrix[0, 0].R * FilterMatrix[0, 0]) +  
-                         (PointMatrix[1, 0].R * FilterMatrix[1, 0]) +  
-                         (PointMatrix[2, 0].R * FilterMatrix[2, 0]) +  
-                         (PointMatrix[0, 1].R * FilterMatrix[0, 1]) +  
-                         (PointMatrix[1, 1].R * FilterMatrix[1, 1]) +  
-                         (PointMatrix[2, 1].R * FilterMatrix[2, 1]) +  
-                         (PointMatrix[0, 2].R * FilterMatrix[0, 2]) +  
-                         (PointMatrix[1, 2].R * FilterMatrix[1, 2]) +  
-                         (PointMatrix[2, 2].R * FilterMatrix[2, 2]))  
-                                / ScaleFactor) +1  );  
-  
-            if (R < 0)  
-            {  
-                R = 0;  
-            }  
-            else if (R > 255)  
-            {  
-                R = 255;  
-            }  
-  
-            G = (int)((((PointMatrix[0, 0].G * FilterMatrix[0, 0]) +  
-                         (PointMatrix[1, 0].G * FilterMatrix[1, 0]) +  
-                         (PointMatrix[2, 0].G * FilterMatrix[2, 0]) +  
-                         (PointMatrix[0, 1].G * FilterMatrix[0, 1]) +  
-                         (PointMatrix[1, 1].G * FilterMatrix[1, 1]) +  
-                         (PointMatrix[2, 1].G * FilterMatrix[2, 1]) +  
-                         (PointMatrix[0, 2].G * FilterMatrix[0, 2]) +  
-                         (PointMatrix[1, 2].G * FilterMatrix[1, 2]) +  
-                         (PointMatrix[2, 2].G * FilterMatrix[2, 2]))  
-                                / ScaleFactor) +1 );  
-  
-            if (G < 0)  
-            {  
-                G = 0;  
-            }  
-            else if (G > 255)  
-            {  
-                G = 255;  
-            }  
-             
-            B = (int)((((PointMatrix[0, 0].B * FilterMatrix[0, 0]) +  
-                         (PointMatrix[1, 0].B * FilterMatrix[1, 0]) +  
-                         (PointMatrix[2, 0].B * FilterMatrix[2, 0]) +  
-                         (PointMatrix[0, 1].B * FilterMatrix[0, 1]) +  
-                         (PointMatrix[1, 1].B * FilterMatrix[1, 1]) +  
-                         (PointMatrix[2, 1].B * FilterMatrix[2, 1]) +  
-                         (PointMatrix[0, 2].B * FilterMatrix[0, 2]) +  
-                         (PointMatrix[1, 2].B * FilterMatrix[1, 2]) +  
-                         (PointMatrix[2, 2].B * FilterMatrix[2, 2]))  
-                                / ScaleFactor) +1 );  
-  
-            if (B < 0)  
-            {  
-                B = 0;  
-            }  
-            else if (B > 255)  
-            {  
-                B = 255;  
-            }  
-            _image.SetPixel(x+1, y+1, Color.FromArgb(A, R, G, B));
+        for (int y = 0; y < _image.Height - 2; y++)
+        {
+            for (int x = 0; x < _image.Width - 2; x++)
+            {
+                pixelColor[0, 0] = _image.GetPixel(x, y);
+                pixelColor[0, 1] = _image.GetPixel(x, y + 1);
+                pixelColor[0, 2] = _image.GetPixel(x, y + 2);
+                pixelColor[1, 0] = _image.GetPixel(x + 1, y);
+                pixelColor[1, 1] = _image.GetPixel(x + 1, y + 1);
+                pixelColor[1, 2] = _image.GetPixel(x + 1, y + 2);
+                pixelColor[2, 0] = _image.GetPixel(x + 2, y);
+                pixelColor[2, 1] = _image.GetPixel(x + 2, y + 1);
+                pixelColor[2, 2] = _image.GetPixel(x + 2, y + 2);
 
-                  }
-              }
-          }
- } 
+                A = pixelColor[1, 1].A;
+
+                R = (int)((((pixelColor[0, 0].R * m.Matrix[0, 0]) +
+                             (pixelColor[1, 0].R * m.Matrix[1, 0]) +
+                             (pixelColor[2, 0].R * m.Matrix[2, 0]) +
+                             (pixelColor[0, 1].R * m.Matrix[0, 1]) +
+                             (pixelColor[1, 1].R * m.Matrix[1, 1]) +
+                             (pixelColor[2, 1].R * m.Matrix[2, 1]) +
+                             (pixelColor[0, 2].R * m.Matrix[0, 2]) +
+                             (pixelColor[1, 2].R * m.Matrix[1, 2]) +
+                             (pixelColor[2, 2].R * m.Matrix[2, 2]))
+                                    / m.Factor) + m.Offset);
+
+                if (R < 0)
+                {
+                    R = 0;
+                }
+                else if (R > 255)
+                {
+                    R = 255;
+                }
+
+                G = (int)((((pixelColor[0, 0].G * m.Matrix[0, 0]) +
+                             (pixelColor[1, 0].G * m.Matrix[1, 0]) +
+                             (pixelColor[2, 0].G * m.Matrix[2, 0]) +
+                             (pixelColor[0, 1].G * m.Matrix[0, 1]) +
+                             (pixelColor[1, 1].G * m.Matrix[1, 1]) +
+                             (pixelColor[2, 1].G * m.Matrix[2, 1]) +
+                             (pixelColor[0, 2].G * m.Matrix[0, 2]) +
+                             (pixelColor[1, 2].G * m.Matrix[1, 2]) +
+                             (pixelColor[2, 2].G * m.Matrix[2, 2]))
+                                    / m.Factor) + m.Offset);
+
+                if (G < 0)
+                {
+                    G = 0;
+                }
+                else if (G > 255)
+                {
+                    G = 255;
+                }
+
+                B = (int)((((pixelColor[0, 0].B * m.Matrix[0, 0]) +
+                             (pixelColor[1, 0].B * m.Matrix[1, 0]) +
+                             (pixelColor[2, 0].B * m.Matrix[2, 0]) +
+                             (pixelColor[0, 1].B * m.Matrix[0, 1]) +
+                             (pixelColor[1, 1].B * m.Matrix[1, 1]) +
+                             (pixelColor[2, 1].B * m.Matrix[2, 1]) +
+                             (pixelColor[0, 2].B * m.Matrix[0, 2]) +
+                             (pixelColor[1, 2].B * m.Matrix[1, 2]) +
+                             (pixelColor[2, 2].B * m.Matrix[2, 2]))
+                                    / m.Factor) + m.Offset);
+
+                if (B < 0)
+                {
+                    B = 0;
+                }
+                else if (B > 255)
+                {
+                    B = 255;
+                }
+                _image.SetPixel(x + 1, y + 1, Color.FromArgb(A, R, G, B));
+            }
+        }
+    }
+}
