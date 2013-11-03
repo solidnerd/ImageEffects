@@ -80,9 +80,9 @@ public class Filteroperation
         Color[,] pixelColor = new Color[3, 3];
         int A, R, G, B;
 
-        for (int y = 0; y < _image.Height - 2; y++)
+        for (int y = 0, height = _image.Height - 2; y < height; y++)
         {
-            for (int x = 0; x < _image.Width - 2; x++)
+            for (int x = 0, width = _image.Width - 2; x < width; x++)
             {
                 pixelColor[0, 0] = _image.GetPixel(x, y);
                 pixelColor[0, 1] = _image.GetPixel(x, y + 1);
