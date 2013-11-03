@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Imaging;
@@ -47,8 +42,6 @@ namespace ImageEffectswithGUI
                 }
             
             }
-           
-            
         }
 
         private void ButtonBlackandWhite_Click(object sender, EventArgs e)
@@ -61,6 +54,12 @@ namespace ImageEffectswithGUI
         {
             HistogramStretch.StartHistogramStretch(DirectImage.Image as Bitmap, (manipulatedimage) => DirectImage.Image = manipulatedimage);
            
+        }
+
+        private void Button3x3_Click(object sender, EventArgs e)
+        {
+            Filteroperation filteroperation = new Filteroperation(DirectImage.Image as Bitmap, FilterOperations.Weichzeichner);
+            filteroperation.Start((manipulatedimage) => DirectImage.Image = manipulatedimage);
         }
     }
 }

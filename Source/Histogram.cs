@@ -36,7 +36,7 @@ namespace ImageEffectswithGUI
 
             setimage(targetimage);
         }
-        // ((color - hmin)*255)/(hmax-hmin)
+
         private static Color calcHistogram(Color color) 
         {
             int colorvalue = ((color.ToArgb()-hmin)*255)/(hmax-hmin);

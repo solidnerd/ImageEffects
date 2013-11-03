@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BlackAndWhite.cs" />
+    <Compile Include="Filteroperation.cs" />
     <Compile Include="Greyscale.cs" />
     <Compile Include="Histogram.cs" />
     <Compile Include="Main.cs">

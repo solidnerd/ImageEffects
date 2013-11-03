@@ -83,6 +83,7 @@
             this.Button3x3.TabIndex = 0;
             this.Button3x3.Text = "3x3";
             this.Button3x3.UseVisualStyleBackColor = true;
+            this.Button3x3.Click += new System.EventHandler(this.Button3x3_Click);
             // 
             // Button11x11
             // 
