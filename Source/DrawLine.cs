@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-public sealed class LinePoint
+public sealed class Point
 {
-    public LinePoint(int x, int y) 
+    public Point(int x, int y) 
     {
         this.X = x;
         this.Y = y;
@@ -13,8 +13,8 @@ public sealed class LinePoint
 
 public class DrawLine
 {
-    public LinePoint From { get; set; }
-    public LinePoint To { get; set; }
+    public Point From { get; set; }
+    public Point To { get; set; }
 
     public delegate void ImageCallBack(Bitmap setimage);
     

@@ -68,8 +68,8 @@ namespace ImageEffectswithGUI
            /* drawline.From = new LinePoint(50, 50);
             * drawline.To = new LinePoint(150, 100);
             */
-             drawline.From = new LinePoint(150, 100);
-             drawline.To = new LinePoint(200, 200); // Es muss die Steigungs Formel umgestellt werden nach x
+             drawline.From = new Point(150, 100);
+             drawline.To = new Point(200, 200); // Es muss die Steigungs Formel umgestellt werden nach x
             
             drawline.Start(DirectImage.Image as Bitmap, (manipulatedimage) => DirectImage.Image = manipulatedimage);
         }
