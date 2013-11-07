@@ -58,8 +58,20 @@ namespace ImageEffectswithGUI
 
         private void Button3x3_Click(object sender, EventArgs e)
         {
-            Filteroperation filteroperation = new Filteroperation(DirectImage.Image as Bitmap, FilterOperations.Weichzeichner);
+            Filteroperation filteroperation = new Filteroperation(DirectImage.Image as Bitmap, FilterOperations.Boost);
             filteroperation.Start((manipulatedimage) => DirectImage.Image = manipulatedimage);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DrawLine drawline = new DrawLine();
+           /* drawline.From = new LinePoint(50, 50);
+            * drawline.To = new LinePoint(150, 100);
+            */
+             drawline.From = new LinePoint(150, 100);
+             drawline.To = new LinePoint(200, 200); // Es muss die Steigungs Formel umgestellt werden nach x
+            
+            drawline.Start(DirectImage.Image as Bitmap, (manipulatedimage) => DirectImage.Image = manipulatedimage);
         }
     }
 }

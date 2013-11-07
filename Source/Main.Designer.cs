@@ -41,6 +41,7 @@
             this.DirectImage = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DirectImage)).BeginInit();
             this.SuspendLayout();
@@ -100,7 +101,7 @@
             this.dateiToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(512, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(677, 24);
             this.mainMenuStrip.TabIndex = 1;
             this.mainMenuStrip.Text = "MainMenuStrip";
             // 
@@ -146,12 +147,23 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(505, 485);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "DrawLine";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(512, 520);
+            this.ClientSize = new System.Drawing.Size(677, 520);
             this.Controls.Add(this.DirectImage);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.Button11x11);
             this.Controls.Add(this.Button3x3);
             this.Controls.Add(this.ButtonHistogram);
@@ -184,6 +196,7 @@
         private System.Windows.Forms.PictureBox DirectImage;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button button1;
     }
 }
 
